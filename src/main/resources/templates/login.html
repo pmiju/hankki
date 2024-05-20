@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 화면</title>
+    <link rel="stylesheet" href="/css/login.css" type="text/css"/>
+    <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+<body>
+<header>
+  <a href="main"><img src="/images/logo.png" style="width:150px; height:150px;"></a>
+</header>
+<form action="/member/login" method="post">
+<div class="id">
+  <span style="margin-right:20px; color:#ff8339; font-weight:bold;">아이디</span><input type="text" name="id" class="idbtn" placeholder="아이디를 입력하세요."/>
+</div>
+<div class="pw">
+  <span style="margin-right:5px; color:#ff8339; font-weight:bold;">비밀번호</span><input type="password" name="pw" class="pwbtn" placeholder="비밀번호를 입력하세요."/>
+</div>
+<div class="login">
+  <button class="loginbtn">로그인</button>
+</div>
+</form>
+<div class="joinbtn">
+    계정이 없으신가요? <a href="join"><span style="color:#00aaff; font-weight:bold;">회원가입</span></a>
+</div>
+<script>
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>즐겨찾기</title>
+  <link rel="stylesheet" href="/css/like.css"/>
+</head>
+<body>
+<header class="top"> <a href="main">
+  <img src="/images/white_logo.png" style="width:50px; height:50px;"></a>
+</header>
+<div class="center">
+    <img src="/images/arrow.png" class="arrow" onclick="history.back(-1)"/>
+  <div id="sub">즐겨찾기</div>
+    <br><br>
+    <div class="index" th:each="like:${likes}">
+        <div id="xbtn"><a href="/delete?name=${like.name}">X</a></div>
+        <div class="store">
+        <div id="sname" th:text="${like.name}">가게이름</div>
+        <div id="snum" th:text="${like.phone}">가게전화번호</div>
+        <div id="sinfo" th:text="${like.address}">가게정보</div>
+        </div>
+    </div>
+</div>
+<script>
+    function delete(){
+
+    }
+</script>
+</body>
+</html>

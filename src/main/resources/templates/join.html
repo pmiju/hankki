@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 화면</title>
+  <link rel="stylesheet" href="/css/join.css" type="text/css"/>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" style="width:150px; height:150px;">
+</header>
+<!--회원가입 폼-->
+<form action="/join" method="post">
+<div class="id">
+    <span style="margin-right:20px; color:#ff8339; font-weight:bold;">아이디</span>
+    <input type="text" class="idtxt" name="id" id="member_id" placeholder="아이디를 입력하세요." required/>
+    <button type="button" class="valid" id="midCheck">중복확인</button>
+    <div><p id="result_checkId"></p></div>
+</div>
+<div class="pw">
+    <span style="margin-right:5px; color:#ff8339; font-weight:bold;">비밀번호</span>
+    <input type="password" class="pwtxt" id="userpw" name="pw" placeholder="비밀번호를 입력하세요." required/>
+</div>
+<div class="name">
+    <span style="margin-right:30px; color:#ff8339; font-weight:bold;">이름</span>
+    <input type="text" class="nametxt" name="name" placeholder="이름을 입력하세요." required/>
+</div>
+<div class="email">
+    <span style="margin-right:18px; color:#ff8339; font-weight:bold;">e-mail</span>
+    <input type="text" class="emailtxt" name="email" placeholder="e-mail을 입력하세요." required/>
+</div>
+<div class="phone">
+    <span style="margin-right:5px; color:#ff8339; font-weight:bold;">전화번호</span>
+    <input type="text" class="phonetxt" name="phone" placeholder="전화번호를 입력하세요." required/>
+</div>
+<div class="join">
+    <button type="submit" class="joinbtn" id="signup">회원가입</button>
+</div>
+</form>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+    $('#midCheck').click(function() {
+        let mid = $('input[name="id"]').val();
+        if(mid == ""){
+            $('#result_checkId').html('아이디를 입력해주세요.');
+            $('#result_checkId').css('color','green');
+            $('#result_checkId').css('font-size','12px');
+        }
+        alert(mid);
+
+        $.ajax({
+            url : "checkId",
+            type : "post",
+            data : {id : mid},
+            dataType:'json',
+            success : function(result) {
+                if(result == 0) {
+                    $('#result_checkId').html('사용할 수 있는 아이디입니다.');
+                    $('#result_checkId').css('color','green');
+                    $('#result_checkId').css('font-size','12px');
+                    $('#member_id').css('color','lightgrey');
+                } else {
+                    $('#result_checkId').html('이미 사용중인 아이디입니다.');
+                    $('#result_checkId').css('color','red');
+                    $('#result_checkId').css('font-size','12px');
+                }
+            },
+            error : function() {
+                alert("서버요청실패");
+            }
+        })
+    });
+</script>
+
+</body>
+</html>

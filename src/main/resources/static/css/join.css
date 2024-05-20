@@ -1,0 +1,129 @@
+* {
+    padding:0px;
+    margin:0px;
+    outline:none;
+}
+
+header {
+    text-align : center;
+    margin-top : 130px;
+}
+
+/*아이디 입력*/
+.id {
+    text-align : center;
+    margin-top:20px;
+    margin-left:80px;
+}
+.idtxt {
+    width: 300px;
+    height : 30px;
+    border:2px solid lightgray;
+    border-radius : 50px;
+    padding : 3px 0px 3px 20px;
+}
+.idtxt:hover {
+    border:2px solid #ff8339;
+}
+/*중복확인*/
+.valid {
+    width:75px;
+    height:30px;
+    border:0px;
+    border-radius:50px;
+    background-color : #ff8339;
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+}
+.checkmsgr {
+    color:red;
+}
+.checkmsgb {
+    color:red;
+}
+/*비밀번호 입력*/
+.pw{
+    text-align : center;
+    margin-top:20px;
+}
+
+.pwtxt{
+    width: 300px;
+    height : 30px;
+    border:2px solid lightgray;
+    border-radius : 50px;
+    padding : 3px 0px 3px 20px;
+}
+.pwtxt:hover {
+    border:2px solid #ff8339;
+}
+
+/*이름*/
+.name{
+    text-align : center;
+    margin-top:20px;
+}
+
+.nametxt{
+    width: 300px;
+    height : 30px;
+    border:2px solid lightgray;
+    border-radius : 50px;
+    padding : 3px 0px 3px 20px;
+}
+.nametxt:hover {
+    border:2px solid #ff8339;
+}
+
+/*email*/
+.email{
+    text-align : center;
+    margin-top:20px;
+}
+
+.emailtxt{
+    width: 300px;
+    height : 30px;
+    border:2px solid lightgray;
+    border-radius : 50px;
+    padding : 3px 0px 3px 20px;
+}
+.emailtxt:hover {
+    border:2px solid #ff8339;
+}
+
+/*전화번호*/
+.phone{
+    text-align : center;
+    margin-top:20px;
+}
+
+.phonetxt{
+    width: 300px;
+    height : 30px;
+    border:2px solid lightgray;
+    border-radius : 50px;
+    padding : 3px 0px 3px 20px;
+}
+.phonetxt:hover {
+    border:2px solid #ff8339;
+}
+
+/*회원가입 버튼*/
+/*로그인 버튼*/
+.join {
+    text-align : center;
+    margin-top:20px;
+}
+
+.joinbtn{
+    width:410px;
+    height:40px;
+    border:0px;
+    border-radius:50px;
+    background-color : #ff8339;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+}
