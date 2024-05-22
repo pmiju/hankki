@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 /*memberDto랑 같은 것?*/
 @Entity

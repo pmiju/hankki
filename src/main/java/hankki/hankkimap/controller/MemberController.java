@@ -111,6 +111,7 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /*마이페이지*/
     @GetMapping(value = "/mypage")
     public String checkLogin(@SessionAttribute(name = "id", required = false) String id) {
 
@@ -124,21 +125,28 @@ public class MemberController {
 
     }
 
+        /*정보수정*/
     @GetMapping(value = "/update")
-    public String updateForm(Model model) {
+    public String updateForm(@SessionAttribute(name = "id", required = false) String id,
+                             Model model) {
         model.addAttribute("updateForm", new UpdateForm());
+        String uinfo = memberService.mypageInfo(id);
+        model.addAttribute("uinfo", uinfo);
         return "update";
     }
 
-    @PostMapping(value="/member/update")
-    public String update(@Valid UpdateForm form, BindingResult result) {
+    @PostMapping(value="/update")
+    public String update(@Valid UpdateForm form, BindingResult result,
+                         @SessionAttribute(name = "id", required = false) String id, Model model) {
         if (result.hasErrors()) {
             log.info("수정 오류 발생");
             return "update";
         }
         log.info("수정 controller");
+        log.info(id);
         Member member = new Member();
-        member.setId(form.getId());
+        member.setMember_num(form.getMember_num());
+        member.setId(id);
         member.setPw(form.getPw());
         member.setName(form.getName());
         member.setEmail(form.getEmail());
@@ -146,6 +154,6 @@ public class MemberController {
 
         memberService.update(member);
 
-        return "update";
+        return "redirect:/update";
     }
 }

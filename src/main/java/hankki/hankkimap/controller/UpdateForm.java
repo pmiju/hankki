@@ -6,6 +6,8 @@ import lombok.Setter;
 
 @Getter @Setter
 public class UpdateForm {
+    private int member_num;
+
     private String id;
 
     private String pw;

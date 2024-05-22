@@ -31,12 +31,20 @@ public class MemberService {
         return member.getId();
     }
 
+    @Transactional
     public Member login(String id, String pw) {
         Optional<Member> findMember = memberRepository.findByUser(id,pw);
         return findMember.get();
     }
 
+    @Transactional
     public String update(Member member) {
+        log.info("member service 로직 탐");
+        log.info(member.getId());
+        log.info(member.getPw());
+        log.info(member.getPhone());
+        log.info(member.getName());
+        log.info(member.getEmail());
         memberRepository.updateById(member.getId(), member.getPw(), member.getName(), member.getEmail(), member.getPhone());
         return member.getId();
     }
@@ -63,5 +71,10 @@ public class MemberService {
         } else {
             return 1;
         }
+    }
+
+    public String mypageInfo(String id) {
+        List<Member> updateId = memberRepository.findById(id);
+        return id;
     }
 }

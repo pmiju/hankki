@@ -7,8 +7,10 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,16 +54,16 @@ public class MemberRepository {
     }
 
     /*정보수정*/
-    public Optional<Member> updateById(String id, String pw, String name, String email, String phone) {
-        return em.createQuery("update Member m set m.pw=:pw, m.name=:name, m.email=:email, m.phone=:phone where m.id=:id",
-                Member.class)
-                .setParameter("id", id)
+    public int updateById(String id, String pw, String name, String email, String phone) {
+        return em.createQuery("update Member m set m.pw=:pw, m.name=:name, m.email=:email, m.phone=:phone where m.id=:id")
                 .setParameter("pw", pw)
                 .setParameter("name", name)
                 .setParameter("email", email)
                 .setParameter("phone", phone)
-                .getResultList().stream().findAny();
+                .setParameter("id", id)
+                .executeUpdate();
     }
+
 }
 
 

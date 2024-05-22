@@ -12,20 +12,19 @@
 <div class="center">
   <img src="/images/arrow.png" class="arrow" onclick="history.back(-1)"/>
   <div id="sub">회원 수정</div>
-  <div class="content">
-    <form action="/member/update" method="post">
+  <div class="content" th:each="uinfo:${uinfo}">
+    <form action="/update" method="post">
       <div class="id">아이디 </div>
-      <input type="text" style="margin-top:10px;" th:value="${session.id}" name="id" disabled>
+      <input type="text" style="margin-top:10px;" th:value="${uinfo.id}" name="id" readonly="readonly">
       <div class="pw" style="margin-top:20px;">비밀번호</div>
-      <input type="password" style="margin-top:10px;" th:value="${session.pw}" name="pw">
+      <input type="password" style="margin-top:10px;" th:value="${uinfo.pw}" name="pw">
       <div class="name" style="margin-top:20px;">이름 </div>
-      <input type="text" style="margin-top:10px;" th:value="${session.name}" name="name">
+      <input type="text" style="margin-top:10px;" th:value="${uinfo.name}" name="name">
       <div class="email" style="margin-top:20px;">이메일 </div>
-      <input type="text" style="margin-top:10px;" th:value="${session.email}" name="email">
+      <input type="text" style="margin-top:10px;" th:value="${uinfo.email}" name="email">
       <div class="phone" style="margin-top:20px;">전화번호 </div>
-      <input type="text" style="margin-top:10px;" th:value="${session.phone}" name="phone">
-
-      <button type="submit" class="updatebtn" id="update">회원가입</button>
+      <input type="text" style="margin-top:10px;" th:value="${uinfo.phone}" name="phone">
+      <button type="submit" class="updatebtn" id="update">수정하기</button>
     </form>
   </div>
 
