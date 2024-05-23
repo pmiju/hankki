@@ -36,10 +36,10 @@ public class BookmarkRepository {
                 .getResultList();
     }
 
-    public List<Bookmark> deleteOne(String name, String id) {
-        return em.createQuery("delete b from Bookmark b where b.name=:name and b.id=:id", Bookmark.class)
+    public int deleteById(String name, String id) {
+        return em.createQuery("delete from Bookmark b where b.name=:name and b.id=:id")
                 .setParameter("name", name)
                 .setParameter("id", id)
-                .getResultList();
+                .executeUpdate();
     }
 }

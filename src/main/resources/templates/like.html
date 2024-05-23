@@ -14,7 +14,7 @@
   <div id="sub">즐겨찾기</div>
     <br><br>
     <div class="index" th:each="like:${likes}">
-        <div id="xbtn"><a href="/delete?name=${like.name}">X</a></div>
+        <span id="xbtn"><a th:href="@{delete(id=${like.id},name=${like.name})}">X</a></span>
         <div class="store">
         <div id="sname" th:text="${like.name}">가게이름</div>
         <div id="snum" th:text="${like.phone}">가게전화번호</div>
@@ -22,10 +22,5 @@
         </div>
     </div>
 </div>
-<script>
-    function delete(){
-
-    }
-</script>
 </body>
 </html>

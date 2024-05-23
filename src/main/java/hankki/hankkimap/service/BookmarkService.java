@@ -19,15 +19,20 @@ public class BookmarkService {
     @Autowired
     BookmarkRepository bookmarkRepository;
 
+    @Transactional
     public String star(Bookmark bookmark) {
         validateDuplicateBookmark(bookmark);
         bookmarkRepository.save(bookmark);
         return bookmark.getId();
     }
 
-    public String delete(String id, String name) {
-        bookmarkRepository.deleteOne(id, name);
-        return name;
+    @Transactional
+    public String delete(Bookmark bookmark) {
+        log.info("bookmarkservice delete 탐");
+        log.info(bookmark.getId());
+        log.info(bookmark.getName());
+        bookmarkRepository.deleteById(bookmark.getId(), bookmark.getName());
+        return bookmark.getId();
     }
 
     private void validateDuplicateBookmark(Bookmark bookmark) {

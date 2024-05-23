@@ -65,9 +65,14 @@ public class BookmarkController {
     }
 
     @GetMapping(value = "/delete")
-    public String delete(@SessionAttribute(value = "id", required = false) String id,
-                         String name) {
-        bookmarkService.delete(id, name);
-        return "redirect:/";
+    public String delete(@RequestParam(value="id") String id,
+                         @RequestParam(value="name") String name) {
+        log.info(id);
+        log.info(name);
+        Bookmark bookmark = new Bookmark();
+        bookmark.setId(id);
+        bookmark.setName(name);
+        bookmarkService.delete(bookmark);
+        return "redirect:/like";
     }
 }

@@ -12,9 +12,8 @@ public class Bookmark {
     @Column(name="bookmark_num")
     private int num;
 
-    @Column(name="bookmark_id")
+    @Column(name="bookmark_id", length = 500, nullable = false)
     private String id;
-
 
     @Column(name="bookmark_name", length = 500, nullable = false)
     private String name;

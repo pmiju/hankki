@@ -125,22 +125,19 @@ public class MemberController {
 
     }
 
-        /*정보수정*/
+    /*정보수정*/
     @GetMapping(value = "/update")
-    public String updateForm(@SessionAttribute(name = "id", required = false) String id,
-                             Model model) {
+    public String updateForm(Model model) {
         model.addAttribute("updateForm", new UpdateForm());
-        String uinfo = memberService.mypageInfo(id);
-        model.addAttribute("uinfo", uinfo);
         return "update";
     }
 
-    @PostMapping(value="/update")
-    public String update(@Valid UpdateForm form, BindingResult result,
+    @PostMapping(value = "/update")
+    public String update(@Valid @ModelAttribute UpdateForm form, BindingResult result,
                          @SessionAttribute(name = "id", required = false) String id, Model model) {
         if (result.hasErrors()) {
             log.info("수정 오류 발생");
-            return "update";
+            return "mypage";
         }
         log.info("수정 controller");
         log.info(id);
@@ -152,8 +149,18 @@ public class MemberController {
         member.setEmail(form.getEmail());
         member.setPhone(form.getPhone());
 
-        memberService.update(member);
+        String updateInfo = memberService.update(member);
 
-        return "redirect:/update";
+        model.addAttribute("uInfo", updateInfo);
+
+        return "update";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateInfo(@SessionAttribute(name = "id", required = false) String id,
+                             Model model) {
+        String info = memberService.mypageInfo(id);
+        model.addAttribute("info", info);
+        return "update";
     }
 }
