@@ -44,9 +44,9 @@
     <div><a href="mypage">
         <button class="mypage_btn" style="box-shadow:1px 1px 1px 1px gray;"><strong>마이페이지</strong></button>
     </a></div>
-    <div>
+    <div><a href="like">
         <button class="star_btn" style="box-shadow:1px 1px 1px 1px gray;"><strong>즐겨찾기</strong></button>
-    </div>
+    </a></div>
 </div>
 
 
@@ -371,6 +371,7 @@
             $.ajax({
                 url : "addPlace",
                 type : "post",
+                dataType: "text",
                 data : {
                     "name" : addname,
                     "phone" : addnum,

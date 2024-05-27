@@ -59,9 +59,15 @@ public class BookmarkController {
     @GetMapping(value = "/like")
     public String like(@SessionAttribute(value = "id", required = false) String id,
                        Model model) {
-        List<Bookmark> likes = bookmarkService.findLikes(id);
-        model.addAttribute("likes", likes);
-        return "like";
+
+        if (id == null) {
+            log.info("로그인 정보 없음");
+            return "login";
+        } else {
+            List<Bookmark> likes = bookmarkService.findLikes(id);
+            model.addAttribute("likes", likes);
+            return "like";
+        }
     }
 
     @GetMapping(value = "/delete")
