@@ -38,6 +38,15 @@ public class Member {
     public Member() {
 
     }
+    public Member(String pw,
+                  String name,
+                  String email,
+                  String phone) {
+        this.pw = pw;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
     @Builder
     public Member(int member_num,
                   String id,

@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 
 @Slf4j
@@ -36,7 +37,7 @@ public class MemberController {
         return result;
     }
 
-    @PostMapping(value = "/join")
+    @PostMapping(value = "/member/join")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
             log.info("실패");
@@ -62,15 +63,16 @@ public class MemberController {
     }
 
     @PostMapping(value = "/member/login")
-    public String login(@Valid LoginForm form, BindingResult result,
-                        HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String checkLogin(@Valid LoginForm loginform, BindingResult result,
+                        HttpServletRequest request, HttpServletResponse response,
+                        Model model) throws Exception {
         if (result.hasErrors()) {
             return "login";
         }
 
         Member member = new Member();
-        member.setId(form.getId());
-        member.setPw(form.getPw());
+        member.setId(loginform.getId());
+        member.setPw(loginform.getPw());
 
         Member loginMember = memberService.login(member.getId(), member.getPw());
 
@@ -84,6 +86,7 @@ public class MemberController {
             session.setAttribute("email", loginMember.getEmail());
             session.setAttribute("phone", loginMember.getPhone());
             session.setMaxInactiveInterval(1000);
+
             log.info("로그인 성공");
             return "redirect:/main";
         } else {
@@ -95,7 +98,7 @@ public class MemberController {
             out.println("history.go(-1); </script>");
             out.close();
             log.info("로그인 실패");
-            return "redirect:/login";
+            return "login";
         }
 
     }
@@ -126,41 +129,38 @@ public class MemberController {
     }
 
     /*정보수정*/
-    @GetMapping(value = "/update")
-    public String updateForm(Model model) {
-        model.addAttribute("updateForm", new UpdateForm());
+    @GetMapping(value = "/update/{id}")
+    public String updateForm(@PathVariable("id") String id,
+                             @Valid @ModelAttribute UpdateForm form, Model model) {
+        log.info("update controller 탐");
+        log.info(id);
+
+        Member member = new Member();
+        member.setId(id);
+
+        String info = memberService.mypageInfo(member);
+
+        log.info(info);
+        model.addAttribute("info", info);
         return "update";
     }
 
-    @PostMapping(value = "/update")
-    public String update(@Valid @ModelAttribute UpdateForm form, BindingResult result,
-                         @SessionAttribute(name = "id", required = false) String id, Model model) {
+    @PostMapping(value = "/member/{id}/update")
+    public String update(@Valid @RequestBody UpdateForm form, BindingResult result,
+                         @PathVariable(name = "id") String id,
+                         Model model) {
         if (result.hasErrors()) {
             log.info("수정 오류 발생");
             return "mypage";
         }
-        log.info("수정 controller");
+        log.info("수정버튼 controller");
         log.info(id);
         Member member = new Member();
-        member.setMember_num(form.getMember_num());
         member.setId(id);
-        member.setPw(form.getPw());
-        member.setName(form.getName());
-        member.setEmail(form.getEmail());
-        member.setPhone(form.getPhone());
 
         String updateInfo = memberService.update(member);
-
         model.addAttribute("uInfo", updateInfo);
 
-        return "update";
-    }
-
-    @GetMapping("/update/{id}")
-    public String updateInfo(@SessionAttribute(name = "id", required = false) String id,
-                             Model model) {
-        String info = memberService.mypageInfo(id);
-        model.addAttribute("info", info);
-        return "update";
+        return "redirect:/update/{id}";
     }
 }

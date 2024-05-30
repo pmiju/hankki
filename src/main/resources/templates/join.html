@@ -10,7 +10,7 @@
   <img src="/images/logo.png" style="width:150px; height:150px;">
 </header>
 <!--회원가입 폼-->
-<form action="/join" method="post">
+<form action="/member/join" method="post">
 <div class="id">
     <span style="margin-right:20px; color:#ff8339; font-weight:bold;">아이디</span>
     <input type="text" class="idtxt" name="id" id="member_id" placeholder="아이디를 입력하세요." required/>
@@ -27,11 +27,13 @@
 </div>
 <div class="email">
     <span style="margin-right:18px; color:#ff8339; font-weight:bold;">e-mail</span>
-    <input type="text" class="emailtxt" name="email" placeholder="e-mail을 입력하세요." required/>
+    <input type="text" class="emailtxt" id="email" name="email" placeholder="e-mail을 입력하세요. ex)xxx@gmail.com" required/>
+    <button type="button" class="valid" id="emailCheck">이메일확인</button>
+    <div><p id="result_checkEmail"></p></div>
 </div>
 <div class="phone">
     <span style="margin-right:5px; color:#ff8339; font-weight:bold;">전화번호</span>
-    <input type="text" class="phonetxt" name="phone" placeholder="전화번호를 입력하세요." required/>
+    <input type="text" class="phonetxt" name="phone" placeholder="전화번호를 입력하세요. ex)010-xxxx-xxxx" oninput="phoneHyphen(this)"  pattern="010-[0-9]{3,4}-[0-9]{4}" maxlength="13" required/>
 </div>
 <div class="join">
     <button type="submit" class="joinbtn" id="signup">회원가입</button>
@@ -39,6 +41,34 @@
 </form>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
+    function phoneHyphen(input) {
+        // 숫자만 남기고 모든 문자 제거
+        var phoneNumber = input.value.replace(/[^\d]/g, "");
+
+        // 전화번호 형식에 맞게 하이푼 추가
+        if (phoneNumber.length >= 4 && phoneNumber.length <= 7) {
+            input.value = phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3);
+        } else if (phoneNumber.length >= 8) {
+            input.value = phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3, 7) + "-" + phoneNumber.slice(7);
+        }
+    }
+
+    $('#emailCheck').click(function() {
+        var email_rule = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        var email = $("#email").val();
+
+        if(email_rule.test(email)) {
+            $('#result_checkEmail').html('알맞은 형식입니다.');
+            $('#result_checkEmail').css('color','green');
+            $('#result_checkEmail').css('font-size','12px');
+        } else {
+            $('#result_checkEmail').html('알맞지 않은 이메일 형식입니다.');
+            $('#result_checkEmail').css('color','red');
+            $('#result_checkEmail').css('font-size','12px');
+        }
+    });
+
     $('#midCheck').click(function() {
         let mid = $('input[name="id"]').val();
         if(mid == ""){
@@ -58,7 +88,6 @@
                     $('#result_checkId').html('사용할 수 있는 아이디입니다.');
                     $('#result_checkId').css('color','green');
                     $('#result_checkId').css('font-size','12px');
-                    $('#member_id').css('color','lightgrey');
                 } else {
                     $('#result_checkId').html('이미 사용중인 아이디입니다.');
                     $('#result_checkId').css('color','red');

@@ -4,12 +4,14 @@ import hankki.hankkimap.domain.Bookmark;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.awt.print.Book;
 import java.util.List;
 
 @Repository
+@Slf4j
 @RequiredArgsConstructor
 public class BookmarkRepository {
     @PersistenceContext

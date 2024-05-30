@@ -49,6 +49,13 @@ public class MemberService {
         return member.getId();
     }
 
+    @Transactional
+    public String mypageInfo(Member member) {
+        List<Member> updateId = memberRepository.findById(member.getId());
+        log.info("mypageInfo service 탐");
+        return member.getId();
+    }
+
     private void validateDuplicateMember(Member member) {
         log.info(this.getClass().getName() + "중복체크로직실행");
         log.info(member.getId());
@@ -73,8 +80,5 @@ public class MemberService {
         }
     }
 
-    public String mypageInfo(String id) {
-        List<Member> updateId = memberRepository.findById(id);
-        return id;
-    }
+
 }
