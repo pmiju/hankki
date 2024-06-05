@@ -6,8 +6,7 @@
   <br><br>
 
   <h3>BACK-END</h3>
-  <div>
-  메인 페이지 <br>
+  <div><br>
   ✔ MYSQL IntelliJ 연동 <br><br>
   ✔ 회원가입, 로그인, 수정 기능 구현 <br><br>
   ✔ 카카오 지도 API를 활용하여 지도 페이지 구현 <br><br>
